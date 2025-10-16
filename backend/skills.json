@@ -1,0 +1,587 @@
+[
+  {
+    "name": "Python",
+    "aliases": ["python3", "py"],
+    "category": "Programming",
+    "blurb": "General-purpose language used in data engineering, ML, and backend services.",
+    "examples": ["pandas", "numpy", "typing"],
+    "suggest": ["SQL", "Pandas", "NumPy", "Scikit-learn", "Flask", "FastAPI"]
+  },
+  {
+    "name": "SQL",
+    "aliases": ["postgres", "mysql", "t-sql", "tsql", "mssql"],
+    "category": "Data",
+    "blurb": "Query language for relational databases; joins, CTEs, and window functions.",
+    "examples": ["joins", "window functions", "CTEs"],
+    "suggest": ["Python", "Tableau", "Power BI", "dbt", "PostgreSQL"]
+  },
+  {
+    "name": "Pandas",
+    "aliases": ["pd", "python pandas"],
+    "category": "Data",
+    "blurb": "Python library for data wrangling and analysis with DataFrames.",
+    "examples": ["groupby", "merge", "apply"],
+    "suggest": ["NumPy", "Scikit-learn", "Jupyter", "Matplotlib"]
+  },
+  {
+    "name": "NumPy",
+    "aliases": ["numpy"],
+    "category": "Data",
+    "blurb": "Numerical computing for Python with N-dimensional arrays and vectorization.",
+    "examples": ["ndarray", "broadcasting", "vectorization"],
+    "suggest": ["Pandas", "Scikit-learn", "PyTorch"]
+  },
+  {
+    "name": "Scikit-learn",
+    "aliases": ["sklearn"],
+    "category": "ML",
+    "blurb": "Classical machine learning library for Python.",
+    "examples": ["RandomForest", "LogisticRegression", "Pipeline"],
+    "suggest": ["Pandas", "NumPy", "XGBoost"]
+  },
+  {
+    "name": "XGBoost",
+    "aliases": ["xgb"],
+    "category": "ML",
+    "blurb": "Gradient boosted decision trees for structured data.",
+    "examples": ["xgbclassifier", "xgbregressor", "early stopping"],
+    "suggest": ["Scikit-learn", "LightGBM", "CatBoost"]
+  },
+  {
+    "name": "LightGBM",
+    "aliases": ["lgbm"],
+    "category": "ML",
+    "blurb": "Fast gradient boosting framework optimized for large datasets.",
+    "examples": ["lgbmclassifier", "histogram algorithm", "categorical features"],
+    "suggest": ["XGBoost", "Scikit-learn"]
+  },
+  {
+    "name": "PyTorch",
+    "aliases": ["torch"],
+    "category": "ML",
+    "blurb": "Deep learning framework with dynamic computation graphs.",
+    "examples": ["torch.nn", "autograd", "torchvision"],
+    "suggest": ["TensorFlow", "Transformers", "CUDA", "Lightning"]
+  },
+  {
+    "name": "TensorFlow",
+    "aliases": ["tf", "keras"],
+    "category": "ML",
+    "blurb": "Deep learning framework with Keras high-level APIs.",
+    "examples": ["tf.data", "SavedModel", "Keras"],
+    "suggest": ["PyTorch", "Transformers"]
+  },
+  {
+    "name": "Transformers",
+    "aliases": ["huggingface transformers", "hf transformers"],
+    "category": "ML",
+    "blurb": "NLP/vision transformer models and pipelines.",
+    "examples": ["BERT", "T5", "Whisper"],
+    "suggest": ["PyTorch", "TensorFlow", "LangChain"]
+  },
+  {
+    "name": "LangChain",
+    "aliases": ["langchain.js", "langchain-python"],
+    "category": "LLM",
+    "blurb": "Framework for building LLM apps with chains, tools, and vector stores.",
+    "examples": ["retrieval", "tools", "agents"],
+    "suggest": ["OpenAI API", "FAISS", "Chroma", "Pinecone"]
+  },
+  {
+    "name": "OpenAI API",
+    "aliases": ["openai", "gpt-4o", "gpt-4o-mini"],
+    "category": "LLM",
+    "blurb": "Hosted LLMs and embeddings for chat, generation, and retrieval.",
+    "examples": ["chat.completions", "embeddings", "function calling"],
+    "suggest": ["LangChain", "tiktoken", "FAISS"]
+  },
+  {
+    "name": "FAISS",
+    "aliases": ["faiss-cpu", "faiss-gpu"],
+    "category": "Vector DB",
+    "blurb": "Similarity search library for dense vector retrieval.",
+    "examples": ["IndexFlatIP", "HNSW", "cosine"],
+    "suggest": ["LangChain", "OpenAI API", "Chroma", "Pinecone"]
+  },
+  {
+    "name": "Chroma",
+    "aliases": ["chroma db"],
+    "category": "Vector DB",
+    "blurb": "Lightweight local-first vector database for embeddings.",
+    "examples": ["collections", "persist", "similarity search"],
+    "suggest": ["LangChain", "OpenAI API", "FAISS"]
+  },
+  {
+    "name": "Pinecone",
+    "aliases": ["pinecone.io"],
+    "category": "Vector DB",
+    "blurb": "Managed vector database for production retrieval workloads.",
+    "examples": ["namespaces", "upserts", "HNSW"],
+    "suggest": ["LangChain", "OpenAI API"]
+  },
+  {
+    "name": "Flask",
+    "aliases": ["werkzeug"],
+    "category": "Backend",
+    "blurb": "Lightweight Python web framework for APIs.",
+    "examples": ["Blueprints", "Jinja2"],
+    "suggest": ["Gunicorn", "Uvicorn", "Docker"]
+  },
+  {
+    "name": "FastAPI",
+    "aliases": ["fast api"],
+    "category": "Backend",
+    "blurb": "Modern Python API framework with type hints and OpenAPI.",
+    "examples": ["Pydantic", "ASGI", "OpenAPI"],
+    "suggest": ["Uvicorn", "SQLModel", "Docker"]
+  },
+  {
+    "name": "Node.js",
+    "aliases": ["node", "express.js", "express"],
+    "category": "Backend",
+    "blurb": "JavaScript runtime for backend APIs and tooling.",
+    "examples": ["Express", "middleware", "REST"],
+    "suggest": ["TypeScript", "Next.js", "PostgreSQL"]
+  },
+  {
+    "name": "Express",
+    "aliases": ["express.js"],
+    "category": "Backend",
+    "blurb": "Minimal Node.js web framework for routing and middleware.",
+    "examples": ["routers", "middleware", "error handling"],
+    "suggest": ["TypeScript", "JWT", "PostgreSQL"]
+  },
+  {
+    "name": "TypeScript",
+    "aliases": ["ts"],
+    "category": "Programming",
+    "blurb": "Typed superset of JavaScript for scalable apps.",
+    "examples": ["interfaces", "generics", "types"],
+    "suggest": ["Node.js", "React", "Next.js"]
+  },
+  {
+    "name": "React",
+    "aliases": ["react.js"],
+    "category": "Frontend",
+    "blurb": "UI library for building component-based web apps.",
+    "examples": ["hooks", "context", "jsx"],
+    "suggest": ["TypeScript", "Next.js", "Redux", "Tailwind CSS"]
+  },
+  {
+    "name": "Next.js",
+    "aliases": ["nextjs"],
+    "category": "Frontend",
+    "blurb": "React framework with routing, SSR/SSG, and app router.",
+    "examples": ["SSR", "ISR", "routing"],
+    "suggest": ["React", "TypeScript", "Tailwind CSS"]
+  },
+  {
+    "name": "Vue",
+    "aliases": ["vue.js"],
+    "category": "Frontend",
+    "blurb": "Progressive JavaScript framework for building UIs.",
+    "examples": ["composition API", "single-file components", "vuex"],
+    "suggest": ["TypeScript", "Vite", "Pinia"]
+  },
+  {
+    "name": "Tailwind CSS",
+    "aliases": ["tailwind"],
+    "category": "Frontend",
+    "blurb": "Utility-first CSS framework for rapid UI development.",
+    "examples": ["flex", "grid", "responsive"],
+    "suggest": ["React", "Next.js", "Vite"]
+  },
+  {
+    "name": "HTML/CSS",
+    "aliases": ["html", "css"],
+    "category": "Frontend",
+    "blurb": "Web markup and styling foundations for layouts and responsive design.",
+    "examples": ["flexbox", "grid", "media queries"],
+    "suggest": ["JavaScript", "React", "Accessibility"]
+  },
+  {
+    "name": "JavaScript",
+    "aliases": ["js", "ecmascript"],
+    "category": "Programming",
+    "blurb": "Scripting language for the web and server-side with Node.js.",
+    "examples": ["async/await", "modules", "fetch"],
+    "suggest": ["TypeScript", "React", "Node.js"]
+  },
+  {
+    "name": "PostgreSQL",
+    "aliases": ["postgres", "psql"],
+    "category": "Data",
+    "blurb": "Open-source relational database with rich SQL features.",
+    "examples": ["CTEs", "indexes", "JSONB"],
+    "suggest": ["SQL", "SQLAlchemy", "dbt"]
+  },
+  {
+    "name": "MongoDB",
+    "aliases": ["mongodb atlas", "mongo"],
+    "category": "Data",
+    "blurb": "Document database for flexible schemas.",
+    "examples": ["aggregations", "indexes", "replica set"],
+    "suggest": ["Mongoose", "Node.js", "Redis"]
+  },
+  {
+    "name": "Redis",
+    "aliases": ["redis cache"],
+    "category": "Data",
+    "blurb": "In-memory data store for caching and queues.",
+    "examples": ["pub/sub", "streams", "TTL"],
+    "suggest": ["Celery", "BullMQ", "Sidekiq"]
+  },
+  {
+    "name": "Elasticsearch",
+    "aliases": ["es", "opensearch"],
+    "category": "Search",
+    "blurb": "Full-text search and analytics engine.",
+    "examples": ["indexes", "Kibana", "aggregations"],
+    "suggest": ["Logstash", "Kibana", "Beats"]
+  },
+  {
+    "name": "Docker",
+    "aliases": ["containers"],
+    "category": "DevOps",
+    "blurb": "Containerization for reproducible builds and deployment.",
+    "examples": ["Dockerfile", "Compose", "images"],
+    "suggest": ["Kubernetes", "CI/CD", "Terraform"]
+  },
+  {
+    "name": "Kubernetes",
+    "aliases": ["k8s"],
+    "category": "DevOps",
+    "blurb": "Container orchestration for scaling and reliability.",
+    "examples": ["pods", "deployments", "helm"],
+    "suggest": ["Docker", "Helm", "ArgoCD"]
+  },
+  {
+    "name": "Helm",
+    "aliases": ["helm charts"],
+    "category": "DevOps",
+    "blurb": "Package manager for Kubernetes deployments.",
+    "examples": ["charts", "values", "templates"],
+    "suggest": ["Kubernetes", "ArgoCD"]
+  },
+  {
+    "name": "ArgoCD",
+    "aliases": ["argo cd"],
+    "category": "DevOps",
+    "blurb": "GitOps continuous delivery for Kubernetes.",
+    "examples": ["applications", "sync", "rollbacks"],
+    "suggest": ["Kubernetes", "Helm", "Git"]
+  },
+  {
+    "name": "Terraform",
+    "aliases": ["iac", "hashicorp terraform"],
+    "category": "DevOps",
+    "blurb": "Infrastructure as Code for provisioning cloud resources.",
+    "examples": ["HCL", "modules", "plan/apply"],
+    "suggest": ["AWS", "GCP", "Azure"]
+  },
+  {
+    "name": "AWS",
+    "aliases": ["amazon web services"],
+    "category": "Cloud",
+    "blurb": "Cloud platform with compute, storage, and managed services.",
+    "examples": ["S3", "EC2", "Lambda"],
+    "suggest": ["Terraform", "Docker", "Kubernetes"]
+  },
+  {
+    "name": "GCP",
+    "aliases": ["google cloud platform"],
+    "category": "Cloud",
+    "blurb": "Google Cloud services for data and applications.",
+    "examples": ["BigQuery", "GCS", "Cloud Run"],
+    "suggest": ["Terraform", "Docker", "Kubernetes", "dbt"]
+  },
+  {
+    "name": "Azure",
+    "aliases": ["microsoft azure"],
+    "category": "Cloud",
+    "blurb": "Microsoft cloud platform and services.",
+    "examples": ["AKS", "ADF", "Synapse"],
+    "suggest": ["Terraform", "Docker", "Kubernetes"]
+  },
+  {
+    "name": "BigQuery",
+    "aliases": ["bq"],
+    "category": "Data",
+    "blurb": "Serverless data warehouse on GCP.",
+    "examples": ["SQL", "partitions", "UDFs"],
+    "suggest": ["GCP", "dbt", "Airflow"]
+  },
+  {
+    "name": "Airflow",
+    "aliases": ["apache airflow"],
+    "category": "Data",
+    "blurb": "Workflow orchestration for data pipelines.",
+    "examples": ["DAGs", "operators", "schedulers"],
+    "suggest": ["dbt", "BigQuery", "Snowflake"]
+  },
+  {
+    "name": "dbt",
+    "aliases": ["data build tool"],
+    "category": "Data",
+    "blurb": "SQL-based transformations with versioning and testing.",
+    "examples": ["models", "tests", "seeds"],
+    "suggest": ["Snowflake", "BigQuery", "Airflow"]
+  },
+  {
+    "name": "Snowflake",
+    "aliases": ["snowflake db"],
+    "category": "Data",
+    "blurb": "Cloud data warehouse with separation of storage and compute.",
+    "examples": ["virtual warehouses", "stages", "tasks"],
+    "suggest": ["dbt", "Airflow", "Fivetran"]
+  },
+  {
+    "name": "Tableau",
+    "aliases": [],
+    "category": "BI",
+    "blurb": "Interactive dashboards and data visualization.",
+    "examples": ["Extracts", "Viz", "Calculated Fields"],
+    "suggest": ["SQL", "Snowflake", "BigQuery"]
+  },
+  {
+    "name": "Power BI",
+    "aliases": ["powerbi"],
+    "category": "BI",
+    "blurb": "Microsoft BI platform with dashboards and DAX modeling.",
+    "examples": ["DAX", "Power Query", "Visuals"],
+    "suggest": ["SQL", "Excel", "Azure"]
+  },
+  {
+    "name": "Matplotlib",
+    "aliases": ["mpl"],
+    "category": "Data Viz",
+    "blurb": "Foundational plotting library for Python.",
+    "examples": ["axes", "subplots", "styles"],
+    "suggest": ["Seaborn", "Plotly", "Pandas"]
+  },
+  {
+    "name": "Seaborn",
+    "aliases": [],
+    "category": "Data Viz",
+    "blurb": "Statistical visualization built on Matplotlib.",
+    "examples": ["relplot", "catplot", "pairplot"],
+    "suggest": ["Pandas", "Matplotlib"]
+  },
+  {
+    "name": "Plotly",
+    "aliases": ["plotly express"],
+    "category": "Data Viz",
+    "blurb": "Interactive charts for web dashboards.",
+    "examples": ["px.bar", "px.line", "dash"],
+    "suggest": ["Dash", "Pandas"]
+  },
+  {
+    "name": "Git",
+    "aliases": ["git version control"],
+    "category": "Tools",
+    "blurb": "Version control for code collaboration.",
+    "examples": ["branch", "merge", "rebase"],
+    "suggest": ["GitHub", "CI/CD"]
+  },
+  {
+    "name": "GitHub",
+    "aliases": ["github actions"],
+    "category": "Tools",
+    "blurb": "Code hosting, pull requests, and CI/CD via Actions.",
+    "examples": ["PRs", "Actions", "Issues"],
+    "suggest": ["Git", "CI/CD"]
+  },
+  {
+    "name": "CI/CD",
+    "aliases": ["continuous integration", "continuous delivery"],
+    "category": "DevOps",
+    "blurb": "Automated build, test, and deploy pipelines.",
+    "examples": ["workflows", "pipelines", "runners"],
+    "suggest": ["Docker", "GitHub", "Kubernetes"]
+  },
+  {
+    "name": "Testing",
+    "aliases": ["unit testing", "integration testing"],
+    "category": "Quality",
+    "blurb": "Automated tests to ensure software correctness.",
+    "examples": ["pytest", "jest", "coverage"],
+    "suggest": ["CI/CD", "GitHub", "TypeScript"]
+  },
+  {
+    "name": "Security",
+    "aliases": ["appsec", "infosec"],
+    "category": "Security",
+    "blurb": "Practices and controls to protect systems and data.",
+    "examples": ["OWASP", "secrets management", "IAM"],
+    "suggest": ["AWS", "HashiCorp Vault", "SAST/DAST"]
+  },
+  {
+    "name": "HashiCorp Vault",
+    "aliases": ["vault"],
+    "category": "Security",
+    "blurb": "Secret management and encryption for apps and pipelines.",
+    "examples": ["KV", "dynamic secrets", "transit"],
+    "suggest": ["Security", "Terraform", "Kubernetes"]
+  },
+  {
+    "name": "OAuth",
+    "aliases": ["oauth2", "oidc", "open id connect"],
+    "category": "Security",
+    "blurb": "Authorization and identity protocols for modern apps.",
+    "examples": ["JWT", "scopes", "PKCE"],
+    "suggest": ["Auth0", "Cognito", "Keycloak"]
+  },
+  {
+    "name": "Auth0",
+    "aliases": ["okta auth0"],
+    "category": "Security",
+    "blurb": "Authentication-as-a-service for apps and APIs.",
+    "examples": ["Universal Login", "Rules", "M2M"],
+    "suggest": ["OAuth", "JWT"]
+  },
+  {
+    "name": "Jupyter",
+    "aliases": ["jupyter notebook", "ipynb"],
+    "category": "Data",
+    "blurb": "Interactive environment for data exploration and prototyping.",
+    "examples": ["notebooks", "widgets", "nbextensions"],
+    "suggest": ["Pandas", "Matplotlib"]
+  },
+  {
+    "name": "Streamlit",
+    "aliases": [],
+    "category": "Data Apps",
+    "blurb": "Python framework for quick data apps and demos.",
+    "examples": ["widgets", "charts", "deployment"],
+    "suggest": ["Pandas", "Plotly"]
+  },
+  {
+    "name": "Dash",
+    "aliases": ["plotly dash"],
+    "category": "Data Apps",
+    "blurb": "Web app framework for analytical dashboards in Python.",
+    "examples": ["dash core", "callbacks", "dcc"],
+    "suggest": ["Plotly", "Pandas"]
+  },
+  {
+    "name": "Kafka",
+    "aliases": ["apache kafka"],
+    "category": "Data",
+    "blurb": "Distributed event streaming platform.",
+    "examples": ["topics", "producers", "consumers"],
+    "suggest": ["Spark", "Flink", "Schema Registry"]
+  },
+  {
+    "name": "Spark",
+    "aliases": ["apache spark", "pyspark"],
+    "category": "Data",
+    "blurb": "Distributed processing for big data workloads.",
+    "examples": ["RDD", "DataFrame", "Spark SQL"],
+    "suggest": ["Kafka", "Delta Lake", "Airflow"]
+  },
+  {
+    "name": "Delta Lake",
+    "aliases": ["delta"],
+    "category": "Data",
+    "blurb": "ACID tables on data lakes for reliable analytics.",
+    "examples": ["time travel", "upserts", "MERGE"],
+    "suggest": ["Spark", "Databricks"]
+  },
+  {
+    "name": "Databricks",
+    "aliases": [],
+    "category": "Data",
+    "blurb": "Unified analytics and lakehouse platform.",
+    "examples": ["notebooks", "jobs", "mlflow"],
+    "suggest": ["Spark", "Delta Lake", "MLflow"]
+  },
+  {
+    "name": "MLflow",
+    "aliases": [],
+    "category": "ML",
+    "blurb": "Experiment tracking and model registry.",
+    "examples": ["runs", "artifacts", "model registry"],
+    "suggest": ["Databricks", "Scikit-learn", "PyTorch"]
+  },
+  {
+    "name": "Time Series",
+    "aliases": ["forecasting"],
+    "category": "ML",
+    "blurb": "Modeling temporal data for forecasting and anomaly detection.",
+    "examples": ["ARIMA", "Prophet", "LSTM"],
+    "suggest": ["Pandas", "Scikit-learn", "PyTorch"]
+  },
+  {
+    "name": "A/B Testing",
+    "aliases": ["experimentation", "ab testing"],
+    "category": "Data",
+    "blurb": "Statistical testing for product and marketing experiments.",
+    "examples": ["power", "p-values", "bayesian"],
+    "suggest": ["SQL", "Python", "Product Analytics"]
+  },
+  {
+    "name": "Product Analytics",
+    "aliases": ["growth analytics"],
+    "category": "Data",
+    "blurb": "Measurement of user behavior and product performance.",
+    "examples": ["funnels", "cohorts", "retention"],
+    "suggest": ["SQL", "A/B Testing", "Amplitude", "Mixpanel"]
+  },
+  {
+    "name": "Communication",
+    "aliases": ["written communication", "verbal communication"],
+    "category": "Soft Skills",
+    "blurb": "Clear written and verbal communication with technical and non-technical audiences.",
+    "examples": ["presentations", "documentation", "storytelling"],
+    "suggest": ["Leadership", "Stakeholder Management"]
+  },
+  {
+    "name": "Leadership",
+    "aliases": ["mentoring", "people leadership"],
+    "category": "Soft Skills",
+    "blurb": "Leading teams, setting direction, and enabling others to succeed.",
+    "examples": ["mentorship", "delegation", "strategy"],
+    "suggest": ["Communication", "Project Management"]
+  },
+  {
+    "name": "Stakeholder Management",
+    "aliases": ["stakeholder communication"],
+    "category": "Soft Skills",
+    "blurb": "Aligning cross-functional partners and managing expectations.",
+    "examples": ["requirements", "updates", "negotiation"],
+    "suggest": ["Communication", "Leadership", "Project Management"]
+  },
+  {
+    "name": "Project Management",
+    "aliases": ["pm", "delivery management"],
+    "category": "Soft Skills",
+    "blurb": "Planning, prioritization, risk management, and delivery.",
+    "examples": ["roadmaps", "backlogs", "retros"],
+    "suggest": ["Agile", "Stakeholder Management"]
+  },
+  {
+    "name": "Agile",
+    "aliases": ["scrum", "kanban"],
+    "category": "Process",
+    "blurb": "Iterative development practices for software teams.",
+    "examples": ["sprints", "standups", "retros"],
+    "suggest": ["Project Management", "Jira"]
+  },
+  {
+    "name": "Jira",
+    "aliases": [],
+    "category": "Tools",
+    "blurb": "Issue tracking and agile planning.",
+    "examples": ["boards", "workflows", "epics"],
+    "suggest": ["Agile", "Confluence"]
+  },
+  {
+    "name": "Confluence",
+    "aliases": [],
+    "category": "Tools",
+    "blurb": "Team knowledge base and documentation.",
+    "examples": ["pages", "spaces", "templates"],
+    "suggest": ["Jira", "Documentation"]
+  }
+]
+

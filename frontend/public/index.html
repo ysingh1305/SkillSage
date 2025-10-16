@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SkillSage Lite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --bg:#0b0c10; --panel:#111318; --text:#f2f4f8; --muted:#b6bdc7; --border:#22252c; --accent:#6ee7b7; --accent-2:#60a5fa; --chip:#1a1d24; --link:#93c5fd; }
+    @media (prefers-color-scheme: light) { :root { --bg:#f8fafc; --panel:#fff; --text:#0f172a; --muted:#475569; --border:#e5e7eb; --chip:#f1f5f9; --link:#2563eb; } }
+    body { margin:0; background:var(--bg); color:var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
+    .container { max-width: 1100px; margin: 36px auto; padding: 0 16px; }
+    .row { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 980px) { .row { grid-template-columns: 1.2fr 1fr; } }
+    .card { background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:16px 18px; }
+    .muted { color:var(--muted); }
+    textarea { width:100%; max-width:100%; min-height:220px; resize:vertical; background:var(--chip); color:var(--text); border:1px solid var(--border); border-radius:12px; padding:12px; font:inherit; box-sizing:border-box; }
+    .controls { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:linear-gradient(180deg,#1b1f29,#161922); color:var(--text); cursor:pointer; }
+    .btn.secondary { background: var(--panel); }
+    .pill { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; border:1px solid var(--border); background:var(--chip); font-size:12px; }
+    .pill.good{ border-color:rgba(16,185,129,.5);} .pill.warn{border-color:rgba(251,191,36,.55);} .pill.bad{border-color:rgba(239,68,68,.6);}
+    .skill{ border:1px solid var(--border); border-radius:14px; padding:12px; margin:10px 0; background:linear-gradient(180deg,var(--panel),rgba(0,0,0,0)); }
+    .skill h3{ margin:0 0 6px; font-size:16px; }
+    details{ border-top:1px dashed var(--border); padding-top:8px; margin-top:8px; }
+    code{ background:var(--chip); padding:2px 6px; border-radius:6px; }
+    .list{ display:flex; flex-wrap:wrap; gap:8px; }
+    .stack{ border:1px dashed var(--border); border-radius:12px; padding:8px 10px; }
+    .header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .title { font-weight:700; letter-spacing:.3px; }
+    .loading{ display:inline-block; width:18px; height:18px; border:2px solid var(--border); border-top-color:var(--accent-2); border-radius:50%; animation:spin .8s linear infinite;}
+    @keyframes spin{ to{ transform:rotate(360deg);} }
+    .grid-two { display:grid; grid-template-columns: 1fr; gap:16px; }
+    @media (min-width: 980px) { .grid-two { grid-template-columns: 1fr 1fr; } }
+    .bar { height:10px; background:var(--chip); border-radius:999px; overflow:hidden; border:1px solid var(--border); }
+    .bar > div { height:100%; background: var(--accent-2); }
+    .table { width:100%; border-collapse: collapse; }
+    .table th, .table td { border-bottom: 1px solid var(--border); padding: 8px; font-size: 14px; text-align: left; }
+    .toast{ position:fixed; right:16px; bottom:16px; background:#111827; color:#fff; padding:12px 14px; border-radius:10px; border:1px solid #1f2937; max-width:320px; display:none; }
+    a { color:var(--link); text-decoration:none; } a:hover{ text-decoration:underline; }
+
+    /* New UI helpers */
+    .scorewrap { display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+    .donut { --v: 0; width:84px; height:84px; border-radius:50%;
+      background: conic-gradient(var(--accent-2) calc(var(--v)*1%), var(--chip) 0);
+      display:grid; place-items:center; border:1px solid var(--border);
+    }
+    .donut span { background:var(--panel); padding:6px 8px; border-radius:10px; font-weight:700; }
+    .verdict.good { color:#10b981; } .verdict.ok { color:#f59e0b; } .verdict.bad { color:#ef4444; }
+    .kpi { border:1px solid var(--border); border-radius:12px; padding:10px; }
+    .kpi .label { font-size:12px; color:var(--muted); }
+    .kpi .value { font-weight:700; margin-top:2px; }
+    .pill.req { border-color:#ef4444aa; } .pill.pref { border-color:#f59e0baa; }
+    .hint { background:var(--chip); border:1px dashed var(--border); padding:10px; border-radius:12px; }
+    .small { font-size:13px; color:var(--muted); }
+    .table.sm td, .table.sm th { font-size:13px; padding:6px 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">SkillSage Lite</div>
+      <div class="toolbar">
+        <button id="copy" class="btn secondary" title="Copy last result JSON">Copy JSON</button>
+        <button id="download" class="btn secondary" title="Download last result JSON">Download</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- JD input -->
+      <div class="card">
+        <p class="muted">Paste a job description. We’ll extract skills, levels, required vs preferred, groups, and suggestions.</p>
+        <textarea id="jd" placeholder="Paste job description here..."></textarea>
+        <div style="height:12px"></div>
+        <div class="controls">
+          <label>Top K: <input id="topk" type="number" value="8" min="1" max="25" style="width:70px; margin-left:6px;"></label>
+          <label style="display:flex; gap:8px; align-items:center;">
+            <input id="llm" type="checkbox" checked /> LLM explanations
+          </label>
+          <button id="go" class="btn"><span id="spinA" style="display:none" class="loading"></span> Extract</button>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="card" id="outCard">
+        <div id="context" class="muted" style="font-size:14px;"></div>
+        <div id="groups"></div>
+        <div id="suggestions" style="margin:6px 0 10px;"></div>
+        <div id="out" style="margin-top:8px;"></div>
+      </div>
+    </div>
+
+    <div style="height:20px;"></div>
+
+    <!-- Resume scoring -->
+    <div class="grid-two">
+      <div class="card">
+        <h3 style="margin-top:0">Score My Resume</h3>
+        <p class="muted">Upload your resume (PDF/DOCX/TXT). We’ll score it against the job description above.</p>
+        <input id="file" type="file" accept=".pdf,.docx,.txt" />
+        <div style="height:10px;"></div>
+        <button id="score" class="btn"><span id="spinB" style="display:none" class="loading"></span> Score Resume</button>
+      </div>
+
+      <div class="card" id="scoreCard">
+        <div id="scoreArea" class="muted">No resume scored yet.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const out = document.getElementById("out");
+    const groupsEl = document.getElementById("groups");
+    const suggestionsEl = document.getElementById("suggestions");
+    const contextEl = document.getElementById("context");
+    const jdEl = document.getElementById("jd");
+    const topkEl = document.getElementById("topk");
+    const llmEl = document.getElementById("llm");
+    const spinA = document.getElementById("spinA");
+    const spinB = document.getElementById("spinB");
+    const toastEl = document.getElementById("toast");
+    const copyBtn = document.getElementById("copy");
+    const downloadBtn = document.getElementById("download");
+    const scoreArea = document.getElementById("scoreArea");
+    const fileEl = document.getElementById("file");
+
+    let lastResult = null;
+    let lastScore = null;
+
+    document.getElementById("go").onclick = async () => {
+      const job_description = jdEl.value.trim();
+      if (!job_description) return toast("Please paste a job description.");
+      spinA.style.display = "inline-block";
+      out.innerHTML = ""; groupsEl.innerHTML = ""; suggestionsEl.innerHTML = ""; contextEl.innerHTML = "";
+      try {
+        const r = await fetch("/extract", {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({ job_description, top_k: Number(topkEl.value)||8, use_llm_explanations: llmEl.checked })
+        });
+        const json = await r.json();
+        lastResult = json;
+        if (!r.ok) return toast(json.error || "Backend error.");
+        renderExtract(json);
+      } catch(e){ console.error(e); toast("Backend not reachable."); }
+      finally { spinA.style.display = "none"; }
+    };
+
+    document.getElementById("score").onclick = async () => {
+      const job_description = jdEl.value.trim();
+      const f = fileEl.files?.[0];
+      if (!job_description) return toast("Add a job description first.");
+      if (!f) return toast("Choose a resume file (PDF/DOCX/TXT).");
+      spinB.style.display = "inline-block";
+      scoreArea.innerHTML = "";
+      const fd = new FormData();
+      fd.append("file", f);
+      fd.append("job_description", job_description);
+      fd.append("top_k", String(Number(topkEl.value)||8));
+      try {
+        const r = await fetch("http://localhost:5050/resume/score", { method:"POST", body: fd });
+        const json = await r.json();
+        lastScore = json;
+        if (!r.ok) return toast(json.error || "Scoring failed.");
+        renderScore(json);
+      } catch(e){ console.error(e); toast("Backend not reachable."); }
+      finally { spinB.style.display = "none"; }
+    };
+
+    function renderExtract(json){
+      const role = json?.context?.role || "—";
+      const industry = json?.context?.industry || "—";
+      contextEl.innerHTML = `
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="pill">Role: <strong style="margin-left:6px">${esc(role)}</strong></span>
+          <span class="pill">Industry: <strong style="margin-left:6px">${esc(industry)}</strong></span>
+          <span class="pill">Top-K: ${json?.meta?.k ?? "—"}</span>
+        </div>
+      `;
+      const groups = json.groups || [];
+      groupsEl.innerHTML = groups.length ? `
+        <div class="list" style="margin:6px 0 8px;">
+          ${groups.map(g => `<div class="stack"><div><strong>${esc(g.group)}</strong></div><div class="muted" style="font-size:13px;">${g.skills.map(s=>`<code>${esc(s)}</code>`).join(" ")}</div></div>`).join("")}
+        </div>
+      ` : "";
+      const sugg = (json.suggestions||[]).filter(Boolean);
+      suggestionsEl.innerHTML = sugg.length ? `<div class="list">${sugg.map(s=>`<span class="pill">${esc(s)}</span>`).join("")}</div>` : "";
+      const skills = json.skills || [];
+      out.innerHTML = !skills.length ? `<div class="muted">No skills found.</div>` : skills.map(s => card(s)).join("");
+    }
+
+    function card(s){
+      const conf = Number(s.confidence ?? 0);
+      const confClass = conf >= 0.8 ? "good" : conf >= 0.6 ? "warn" : "bad";
+      const req = s.requirement || "unspecified";
+      const level = s.level || "unspecified";
+      const yrs = (s.years != null && s.years !== 0) ? `${s.years} yrs` : null;
+      const examples = (s.examples || []).map(e=>`<code>${esc(e)}</code>`).join(" ");
+      const regex = new RegExp(`(${escapeRegex(s.name)})`, "ig");
+      const snippets = (s.snippets || []).map(x => `<li>${esc(x).replace(regex, "<mark>$1</mark>")}</li>`).join("");
+      return `
+        <div class="skill">
+          <h3>${esc(s.name)}</h3>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin:6px 0 8px;">
+            <span class="pill ${confClass}">${conf.toFixed(2)}</span>
+            <span class="pill">${esc(req)}</span>
+            <span class="pill">${esc(level)}</span>
+            ${yrs ? `<span class="pill">${esc(yrs)}</span>` : ""}
+            ${s.category ? `<span class="pill">${esc(s.category)}</span>` : ""}
+          </div>
+          ${s.why_this_job ? `<div class="muted" style="margin:4px 0 6px;">${esc(s.why_this_job)}</div>` : ""}
+          ${examples ? `<div style="margin:4px 0;">Examples: ${examples}</div>` : ""}
+          ${snippets ? `<details><summary>Snippets</summary><ul>${snippets}</ul></details>` : ""}
+        </div>
+      `;
+    }
+
+    /* ---------- New score UI ---------- */
+    function renderScore(j){
+      const b = j.breakdown || {};
+      const score = Number(j.overall_score || 0);
+      const pct = (x)=> Math.round((x||0)*100);
+      const cls = score >= 75 ? "good" : score >= 55 ? "ok" : "bad";
+      const verdict = score >= 80 ? "Excellent match"
+                    : score >= 65 ? "Strong match"
+                    : score >= 50 ? "Moderate match"
+                    : "Needs work";
+
+      const reqMiss = (j.missing?.required || []).slice(0,3);
+      const prefMiss = (j.missing?.preferred || []).slice(0,4);
+      const sugg = (j.suggestions || []).filter(s => !reqMiss.includes(s) && !prefMiss.includes(s)).slice(0,8);
+
+      scoreArea.innerHTML = `
+        <div class="scorewrap">
+          <div class="donut" style="--v:${score}">
+            <span>${score}</span>
+          </div>
+          <div>
+            <div class="verdict ${cls}" style="font-weight:700; font-size:18px;">${verdict}</div>
+            <div class="small">Based on required coverage, preferred coverage, level alignment, and years alignment.</div>
+          </div>
+        </div>
+
+        <div style="height:10px"></div>
+
+        <div class="grid-two">
+          <div class="kpi"><div class="label">Required coverage</div><div class="value">${pct(b.required)}%</div></div>
+          <div class="kpi"><div class="label">Preferred coverage</div><div class="value">${pct(b.preferred)}%</div></div>
+          <div class="kpi"><div class="label">Level alignment</div><div class="value">${pct(b.level_alignment)}%</div></div>
+          <div class="kpi"><div class="label">Years alignment</div><div class="value">${pct(b.years_alignment)}%</div></div>
+        </div>
+
+        ${b.synergy_bonus ? `<div class="small" style="margin-top:6px;">Stack synergy bonus: +${pct(b.synergy_bonus)}%</div>` : ""}
+
+        <div style="height:12px"></div>
+
+        ${renderGaps(reqMiss, prefMiss)}
+
+        ${sugg.length ? `
+          <div style="margin-top:12px;">
+            <strong>Suggested focus (next steps):</strong>
+            <div class="list" style="margin-top:6px;">${sugg.map(s=>`<span class="pill">${esc(s)}</span>`).join("")}</div>
+            <div class="small" style="margin-top:6px;">Pick 2–3 to strengthen before applying. These commonly co-occur with the job’s requirements.</div>
+          </div>` : ""}
+
+        ${renderMatched(j.matched)}
+      `;
+    }
+
+    function renderGaps(reqMiss, prefMiss){
+      const req = reqMiss?.length ? reqMiss.map(s=>`<span class="pill req">${esc(s)}</span>`).join(" ") : "<span class='small'>None</span>";
+      const pref = prefMiss?.length ? prefMiss.map(s=>`<span class="pill pref">${esc(s)}</span>`).join(" ") : "<span class='small'>None</span>";
+      let note = "";
+      if ((reqMiss?.length || 0) >= 2) note = "You’re missing multiple required skills. Focus on the red items first.";
+      else if ((reqMiss?.length || 0) === 1) note = "You’re missing one required skill—address this to improve your match.";
+      else if ((prefMiss?.length || 0) >= 2) note = "Nice-to-haves could boost your chances if you add a couple.";
+      if (note) note = `<div class="hint" style="margin-top:8px;">${note}</div>`;
+      return `
+        <div>
+          <strong>Missing (required):</strong> ${req}
+          <div style="height:6px"></div>
+          <strong>Missing (preferred):</strong> ${pref}
+          ${note}
+        </div>
+      `;
+    }
+    /* ---------- /New score UI ---------- */
+
+    function bars(label, v){
+      const pct = Math.round((v||0)*100);
+      return `
+        <div class="muted" style="font-size:13px; margin:6px 0 6px;">${label} (${pct}%)</div>
+        <div class="bar"><div style="width:${pct}%"></div></div>
+      `;
+    }
+
+    function renderMatched(rows){
+      if (!rows || !rows.length) return "";
+      return `
+        <div style="margin-top:16px;"><strong>Matched skills</strong></div>
+        <table class="table sm">
+          <thead>
+            <tr>
+              <th>Skill</th><th>Requirement</th><th>JD Level</th><th>Res Level</th>
+              <th>JD Years</th><th>Res Years</th><th>L</th><th>Y</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(r=>`
+              <tr>
+                <td>${esc(r.name)}</td>
+                <td>${esc(r.requirement||"")}</td>
+                <td>${esc(r.jd_level||"")}</td>
+                <td>${esc(r.resume_level||"")}</td>
+                <td>${r.jd_years ?? ""}</td>
+                <td>${r.resume_years ?? ""}</td>
+                <td>${(r.level_score??0).toFixed(2)}</td>
+                <td>${(r.years_score??0).toFixed(2)}</td>
+              </tr>`).join("")}
+          </tbody>
+        </table>
+        <div class="small" style="margin-top:6px;">L = level match score, Y = years match score.</div>
+      `;
+    }
+
+    // Utils
+    function toast(msg){ toastEl.textContent = msg; toastEl.style.display="block"; setTimeout(()=>toastEl.style.display="none", 3500); }
+    function esc(str){ return String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;"); }
+    function escapeRegex(str){ return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+    copyBtn.onclick = () => {
+      const data = lastScore || lastResult;
+      if (!data) return toast("Nothing to copy yet.");
+      navigator.clipboard.writeText(JSON.stringify(data, null, 2))
+        .then(()=>toast("Copied JSON to clipboard"))
+        .catch(()=>toast("Copy failed"));
+    };
+    downloadBtn.onclick = () => {
+      const data = lastScore || lastResult;
+      if (!data) return toast("Nothing to download yet.");
+      const blob = new Blob([JSON.stringify(data, null, 2)], {type:"application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a"); a.href = url; a.download = "skillsage.json";
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    };
+  </script>
+</body>
+</html>
